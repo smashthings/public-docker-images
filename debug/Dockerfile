@@ -1,0 +1,32 @@
+FROM smasherofallthings/base-image:latest
+
+RUN apt-get update && apt-get install -y \
+python3 \
+python3-pip \
+curl \
+bash \
+bash-completion \
+nano \
+file \
+jq \
+net-tools \
+dnsutils \
+tar \
+rsync \
+tcpdump \
+make \
+less
+
+RUN curl -L -o /usr/bin/kubectl "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && chmod a+x /usr/bin/kubectl
+
+RUN python3 -m pip install \
+requests \
+awscli \
+PyYaml \
+names \
+jmespath \
+Jinja2 \
+boto3 \
+bitstring
+
+ENTRYPOINT [ "/bin/bash" ]
