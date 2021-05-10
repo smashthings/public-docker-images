@@ -1,4 +1,6 @@
 FROM smasherofallthings:base-image
+LABEL maintainer="smasherofallthings"
+LABEL description="Installing the latest version of python on top of a chosen Debian release - more details: https://gitlab.com/scripteddog/public-docker-images"
 
 COPY artefacts/installPython.sh /opt/python3
 
