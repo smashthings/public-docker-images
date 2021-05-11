@@ -8,6 +8,7 @@ python3-pip \
 bash 
 
 RUN python3 -m pip install \
+kubernetes \
 requests \
 awscli \
 PyYaml \
