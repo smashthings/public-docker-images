@@ -9,6 +9,7 @@ bash
 
 RUN python3 -m pip install \
 kubernetes \
+prometheus-client \
 requests \
 awscli \
 PyYaml \
