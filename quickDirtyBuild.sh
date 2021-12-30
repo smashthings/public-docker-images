@@ -12,7 +12,13 @@ logAndExit() {
 
 docker login
 
-for f in "base-image" "debug" "flask-waitress" "certbot-k8s" ; do
+toBuild=("base-image" "debug" "flask-waitress" "certbot-k8s" "solidjs")
+
+if [[ ! -z $1 ]]; then
+  toBuild=("${1}")
+fi
+
+for f in "${toBuild[@]}" ; do
   printf "\n_____________________________________\n<$(date --rfc-3339=seconds)> - Handling ${f}\n"
   if [[ -d $f ]]; then
     cd $f
