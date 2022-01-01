@@ -4,7 +4,8 @@ LABEL description="An image that contains SolidJS for frontend development - mor
 
 RUN apt-get update && apt-get install -y \
   curl \
-  xz-utils
+  xz-utils \
+  git
 
 # Version set to 16.13.1
 RUN mkdir /tmp/node && curl https://nodejs.org/dist/v16.13.1/node-v16.13.1-linux-x64.tar.xz -o /tmp/node/node.tar.xz
@@ -14,6 +15,9 @@ RUN mv /usr/local/lib/nodejs/*/* /usr/local/lib/nodejs/ && rm -rf /usr/local/lib
 ENV PATH="/usr/local/lib/nodejs/bin:${PATH}"
 RUN node -v && npm version && npx -v
 
-RUN npm install -g solid-js babel-preset-solid
+RUN npm install -g solid-js babel-preset-solid degit vite vite-plugin-solid esbuild esbuild-plugin-solid
+
+EXPOSE 8080
+EXPOSE 3000
 
 ENTRYPOINT [ "bash" ]
