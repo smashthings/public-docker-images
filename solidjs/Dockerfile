@@ -15,9 +15,6 @@ RUN mv /usr/local/lib/nodejs/*/* /usr/local/lib/nodejs/ && rm -rf /usr/local/lib
 ENV PATH="/usr/local/lib/nodejs/bin:${PATH}"
 RUN node -v && npm version && npx -v
 
-RUN npm install -g solid-js babel-preset-solid degit vite vite-plugin-solid esbuild esbuild-plugin-solid
-
-EXPOSE 8080
-EXPOSE 3000
+RUN npm install -g solid-js babel-preset-solid esbuild esbuild-plugin-solid
 
 ENTRYPOINT [ "bash" ]

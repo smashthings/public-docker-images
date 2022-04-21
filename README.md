@@ -39,3 +39,6 @@ Debian stays stable which is great, however, some devs just have to have the lat
 
 ### Certbot K8s
 Takes the certbot base image and installs kubectl and the aws CLI over the top. This is done so so that you can run the certbot image in a K8s pod along with a serviceaccount update a Route53 hosted zone with the certbot challenge and then update a K8s secret with all the resulting PKI. This is what fits my use case at least but you can muck around with it to fit yours.
+
+### Python FE
+This is a mash between the frontend image containing all the js stuff that I don't want running natively on my machine, and the python backend which is usually flask and waitress based.

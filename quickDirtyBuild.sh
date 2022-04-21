@@ -12,7 +12,7 @@ logAndExit() {
 
 docker login
 
-toBuild=("base-image" "debug" "flask-waitress" "certbot-k8s" "solidjs")
+toBuild=("base-image" "debug" "flask-waitress" "certbot-k8s" "solidjs" "python-fe")
 
 if [[ ! -z $1 ]]; then
   toBuild=("${1}")
