@@ -1,0 +1,121 @@
+kind: pipeline
+type: docker
+name: public-docker-images
+
+clone:
+  disable: true
+
+steps:
+- name: clone
+  image: smasherofallthings/debug
+  commands:
+  - GIT_SSL_NO_VERIFY=true git clone -v $DRONE_GIT_HTTP_URL .
+  - GIT_SSL_NO_VERIFY=true git checkout $DRONE_COMMIT
+
+- name: Base Image
+  image: smasherofallthings/python-fe
+  environment:
+    IMAGE_NAME: base-image
+  commands:
+  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  volumes:
+  - name: docker-socket
+    path: /var/run/docker.sock
+  - name: docker-creds
+    path: /root/.docker/config.json
+
+- name: Debug
+  image: smasherofallthings/python-fe
+  environment:
+    IMAGE_NAME: debug
+  commands:
+  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  volumes:
+  - name: docker-socket
+    path: /var/run/docker.sock
+  - name: docker-creds
+    path: /root/.docker/config.json
+
+- name: Flask Waitress
+  image: smasherofallthings/python-fe
+  environment:
+    IMAGE_NAME: flask-waitress
+  commands:
+  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  volumes:
+  - name: docker-socket
+    path: /var/run/docker.sock
+  - name: docker-creds
+    path: /root/.docker/config.json
+
+- name: K8s Certbot
+  image: smasherofallthings/python-fe
+  environment:
+    IMAGE_NAME: certbot-k8s
+  commands:
+  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  volumes:
+  - name: docker-socket
+    path: /var/run/docker.sock
+  - name: docker-creds
+    path: /root/.docker/config.json
+
+- name: SolidJS
+  image: smasherofallthings/python-fe
+  environment:
+    IMAGE_NAME: solidjs
+  commands:
+  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  volumes:
+  - name: docker-socket
+    path: /var/run/docker.sock
+  - name: docker-creds
+    path: /root/.docker/config.json
+
+- name: Python Frontend
+  image: smasherofallthings/python-fe
+  environment:
+    IMAGE_NAME: python-fe
+  commands:
+  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  volumes:
+  - name: docker-socket
+    path: /var/run/docker.sock
+  - name: docker-creds
+    path: /root/.docker/config.json
+
+- name: Push repo to public repos
+  image: smasherofallthings/debug
+  commands:
+  - git checkout $DRONE_BRANCH
+  - ls -al /root/.ssh
+  - git remote add github git@github.com:smashthings/$DRONE_REPO_NAME.git
+  - git push -u github
+  - git remote add gitlab git@gitlab.com:scripteddog/$DRONE_REPO_NAME.git
+  - git push -u gitlab
+  volumes:
+  - name: ssh-creds
+    path: /root/.ssh/
+  when:
+    branch:
+    - master
+
+volumes:
+- name: docker-socket
+  host:
+    path: /var/run/docker.sock
+- name: docker-creds
+  host:
+    path: /root/.docker/config.json
+- name: ssh-creds
+  host:
+    path: /root/.ssh/
+
+trigger:
+  branch:
+    - master
+    - pipeline
+  event:
+    - push
+
+
