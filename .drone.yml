@@ -84,18 +84,21 @@ steps:
   - name: docker-creds
     path: /root/.docker/config.json
 
-# - name: Push repo to public repos
-#   image: smasherofallthings/debug
-#   commands:
-#   - git checkout $DRONE_BRANCH
-#   - ls -al /root/.ssh
-#   - git remote add github git@github.com:smashthings/$DRONE_REPO_NAME.git
-#   - git push -u github
-#   - git remote add gitlab git@gitlab.com:scripteddog/$DRONE_REPO_NAME.git
-#   - git push -u gitlab
-#   volumes:
-#   - name: ssh-creds
-#     path: /root/.ssh/
+- name: Push repo to public repos
+  image: smasherofallthings/debug
+  commands:
+  - git checkout $DRONE_BRANCH
+  - ls -al /root/.ssh
+  - git remote add github git@github.com:smashthings/$DRONE_REPO_NAME.git
+  - git push -u github
+  - git remote add gitlab git@gitlab.com:scripteddog/$DRONE_REPO_NAME.git
+  - git push -u gitlab
+  volumes:
+  - name: ssh-creds
+    path: /root/.ssh/
+  when:
+    branch:
+    - master
 
 volumes:
 - name: docker-socket
