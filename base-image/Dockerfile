@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 LABEL maintainer="smasherofallthings"
 LABEL description="A base image - more details: https://gitlab.com/scripteddog/public-docker-images"
 
