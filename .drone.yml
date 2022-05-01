@@ -17,7 +17,7 @@ steps:
   environment:
     IMAGE_NAME: base-image
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -29,7 +29,7 @@ steps:
   environment:
     IMAGE_NAME: debug
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -41,7 +41,7 @@ steps:
   environment:
     IMAGE_NAME: flask-waitress
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -53,7 +53,7 @@ steps:
   environment:
     IMAGE_NAME: certbot-k8s
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -65,7 +65,7 @@ steps:
   environment:
     IMAGE_NAME: solidjs
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -77,7 +77,7 @@ steps:
   environment:
     IMAGE_NAME: python-fe
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
