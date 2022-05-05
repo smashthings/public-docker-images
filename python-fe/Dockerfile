@@ -21,4 +21,5 @@ RUN python3 -m pip install \
   boto3 \
   bitstring \
   Flask \
-  waitress
+  waitress \
+  pytest
