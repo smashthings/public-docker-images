@@ -22,4 +22,5 @@ RUN python3 -m pip install \
   bitstring \
   Flask \
   waitress \
-  pytest
+  pytest \
+  build
