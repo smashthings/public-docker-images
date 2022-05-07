@@ -56,3 +56,8 @@ This is a specialised image that I use for the selected frontend technologies th
 
 ### Latest Python
 This is an advanced python installation over the top of the base Debian image. I've not needed to go cutting edge on python yet but this was an interesting framework to work along 
+
+### Buildah
+An image containing buildah configuration to get it to work as a docker in docker replacement. Reasonable amounts of debugging went into getting this working and it worked in the majority of cases with some issues around GID and UID settings on some particular builds (ie, Gitea). Mostly use docker socker exposed images for builds these days instead for ease of use and the fact that a compromised build agent is going to be devastating docker or not. I'm not currently running a bank so ROI isn't worth it
+
+
