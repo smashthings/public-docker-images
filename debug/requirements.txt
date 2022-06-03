@@ -1,0 +1,8 @@
+requests
+PyYaml
+names
+jmespath
+Jinja2
+boto3
+ansible
+bitstring
