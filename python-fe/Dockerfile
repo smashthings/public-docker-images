@@ -25,4 +25,6 @@ RUN python3 -m pip install \
   waitress \
   pytest \
   build \
+  flask_sqlalchemy \
+  sqlalchemy_utils \
   twine
