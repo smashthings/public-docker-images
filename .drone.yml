@@ -12,6 +12,8 @@ steps:
   - GIT_SSL_NO_VERIFY=true git clone -v $DRONE_GIT_HTTP_URL .
   - GIT_SSL_NO_VERIFY=true git checkout $DRONE_COMMIT
 
+##########################################
+# Independent Steps
 - name: Base Image
   image: smasherofallthings/python-fe
   environment:
@@ -24,58 +26,10 @@ steps:
   - name: docker-creds
     path: /root/.docker/config.json
 
-- name: Debug
-  image: smasherofallthings/python-fe
-  environment:
-    IMAGE_NAME: debug
-  commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
-  volumes:
-  - name: docker-socket
-    path: /var/run/docker.sock
-  - name: docker-creds
-    path: /root/.docker/config.json
-
-- name: Flask Waitress
-  image: smasherofallthings/python-fe
-  environment:
-    IMAGE_NAME: flask-waitress
-  commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
-  volumes:
-  - name: docker-socket
-    path: /var/run/docker.sock
-  - name: docker-creds
-    path: /root/.docker/config.json
-
 - name: K8s Certbot
   image: smasherofallthings/python-fe
   environment:
     IMAGE_NAME: certbot-k8s
-  commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
-  volumes:
-  - name: docker-socket
-    path: /var/run/docker.sock
-  - name: docker-creds
-    path: /root/.docker/config.json
-
-- name: SolidJS
-  image: smasherofallthings/python-fe
-  environment:
-    IMAGE_NAME: solidjs
-  commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
-  volumes:
-  - name: docker-socket
-    path: /var/run/docker.sock
-  - name: docker-creds
-    path: /root/.docker/config.json
-
-- name: Python Frontend
-  image: smasherofallthings/python-fe
-  environment:
-    IMAGE_NAME: python-fe
   commands:
   - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
   volumes:
@@ -100,6 +54,67 @@ steps:
     branch:
     - master
 
+##########################################
+# Base Image Derived Images
+- name: Debug
+  image: smasherofallthings/python-fe
+  environment:
+    IMAGE_NAME: debug
+  commands:
+  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  volumes:
+  - name: docker-socket
+    path: /var/run/docker.sock
+  - name: docker-creds
+    path: /root/.docker/config.json
+  depends_on:
+  - Base Image
+
+- name: Flask Waitress
+  image: smasherofallthings/python-fe
+  environment:
+    IMAGE_NAME: flask-waitress
+  commands:
+  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  volumes:
+  - name: docker-socket
+    path: /var/run/docker.sock
+  - name: docker-creds
+    path: /root/.docker/config.json
+  depends_on:
+  - Base Image
+
+- name: SolidJS
+  image: smasherofallthings/python-fe
+  environment:
+    IMAGE_NAME: solidjs
+  commands:
+  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  volumes:
+  - name: docker-socket
+    path: /var/run/docker.sock
+  - name: docker-creds
+    path: /root/.docker/config.json
+  depends_on:
+  - Base Image
+
+##########################################
+# Frontend Images
+- name: Python Frontend
+  image: smasherofallthings/python-fe
+  environment:
+    IMAGE_NAME: python-fe
+  commands:
+  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  volumes:
+  - name: docker-socket
+    path: /var/run/docker.sock
+  - name: docker-creds
+    path: /root/.docker/config.json
+  depends_on:
+  - Base Image
+  - SolidJS
+
 - name: Hugo
   image: smasherofallthings/python-fe
   environment:
@@ -111,6 +126,9 @@ steps:
     path: /var/run/docker.sock
   - name: docker-creds
     path: /root/.docker/config.json
+  depends_on:
+  - Base Image
+  - SolidJS
 
 volumes:
 - name: docker-socket
@@ -130,8 +148,9 @@ trigger:
   event:
     - push
 
-
 ---
+##########################################
+# Cron Pipeline
 kind: pipeline
 type: docker
 name: public-docker-images-cron
@@ -146,34 +165,12 @@ steps:
   - GIT_SSL_NO_VERIFY=true git clone -v $DRONE_GIT_HTTP_URL .
   - GIT_SSL_NO_VERIFY=true git checkout $DRONE_COMMIT
 
+##########################################
+# Independent Steps
 - name: Base Image
   image: smasherofallthings/python-fe
   environment:
     IMAGE_NAME: base-image
-  commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
-  volumes:
-  - name: docker-socket
-    path: /var/run/docker.sock
-  - name: docker-creds
-    path: /root/.docker/config.json
-
-- name: Debug
-  image: smasherofallthings/python-fe
-  environment:
-    IMAGE_NAME: debug
-  commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
-  volumes:
-  - name: docker-socket
-    path: /var/run/docker.sock
-  - name: docker-creds
-    path: /root/.docker/config.json
-
-- name: Flask Waitress
-  image: smasherofallthings/python-fe
-  environment:
-    IMAGE_NAME: flask-waitress
   commands:
   - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
   volumes:
@@ -194,6 +191,36 @@ steps:
   - name: docker-creds
     path: /root/.docker/config.json
 
+##########################################
+# Base Image Derived Images
+- name: Debug
+  image: smasherofallthings/python-fe
+  environment:
+    IMAGE_NAME: debug
+  commands:
+  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  volumes:
+  - name: docker-socket
+    path: /var/run/docker.sock
+  - name: docker-creds
+    path: /root/.docker/config.json
+  depends_on:
+  - Base Image
+
+- name: Flask Waitress
+  image: smasherofallthings/python-fe
+  environment:
+    IMAGE_NAME: flask-waitress
+  commands:
+  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  volumes:
+  - name: docker-socket
+    path: /var/run/docker.sock
+  - name: docker-creds
+    path: /root/.docker/config.json
+  depends_on:
+  - Base Image
+
 - name: SolidJS
   image: smasherofallthings/python-fe
   environment:
@@ -205,7 +232,11 @@ steps:
     path: /var/run/docker.sock
   - name: docker-creds
     path: /root/.docker/config.json
+  depends_on:
+  - Base Image
 
+##########################################
+# Frontend Images
 - name: Python Frontend
   image: smasherofallthings/python-fe
   environment:
@@ -217,6 +248,24 @@ steps:
     path: /var/run/docker.sock
   - name: docker-creds
     path: /root/.docker/config.json
+  depends_on:
+  - Base Image
+  - SolidJS
+
+- name: Hugo
+  image: smasherofallthings/python-fe
+  environment:
+    IMAGE_NAME: hugo
+  commands:
+  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  volumes:
+  - name: docker-socket
+    path: /var/run/docker.sock
+  - name: docker-creds
+    path: /root/.docker/config.json
+  depends_on:
+  - Base Image
+  - SolidJS
 
 volumes:
 - name: docker-socket
@@ -232,5 +281,3 @@ volumes:
 trigger:
   event:
     - cron
-
-
