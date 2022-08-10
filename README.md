@@ -51,6 +51,11 @@ This is a specialised image that I use for the selected frontend technologies th
 
 *Use Case:* Running on a local development machine with code mounted as a volume allowing for python and especially node development code to be run in isolation. The JS environment and landscape is too insecure to be run directly on my development machine, this gives me that boundary to build tailwind, solidjs, etc whilst still being able to run the Flask application
 
+### Hugo
+For some reason Hugo doesn't release docker images, so this is a docker image that includes Hugo and some base packages such as git and curl
+
+*Use Case:* CICD pipeline image for Hugo
+
 
 ## WIP
 
