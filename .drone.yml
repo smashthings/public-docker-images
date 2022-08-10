@@ -68,6 +68,7 @@ steps:
   - name: docker-creds
     path: /root/.docker/config.json
   depends_on:
+  - clone
   - Base Image
 
 - name: Flask Waitress
@@ -82,6 +83,7 @@ steps:
   - name: docker-creds
     path: /root/.docker/config.json
   depends_on:
+  - clone
   - Base Image
 
 - name: SolidJS
@@ -96,6 +98,7 @@ steps:
   - name: docker-creds
     path: /root/.docker/config.json
   depends_on:
+  - clone
   - Base Image
 
 ##########################################
@@ -112,6 +115,7 @@ steps:
   - name: docker-creds
     path: /root/.docker/config.json
   depends_on:
+  - clone
   - Base Image
   - SolidJS
 
@@ -127,6 +131,7 @@ steps:
   - name: docker-creds
     path: /root/.docker/config.json
   depends_on:
+  - clone
   - Base Image
   - SolidJS
 
@@ -205,6 +210,7 @@ steps:
   - name: docker-creds
     path: /root/.docker/config.json
   depends_on:
+  - clone
   - Base Image
 
 - name: Flask Waitress
@@ -219,6 +225,7 @@ steps:
   - name: docker-creds
     path: /root/.docker/config.json
   depends_on:
+  - clone
   - Base Image
 
 - name: SolidJS
@@ -233,6 +240,7 @@ steps:
   - name: docker-creds
     path: /root/.docker/config.json
   depends_on:
+  - clone
   - Base Image
 
 ##########################################
@@ -249,6 +257,7 @@ steps:
   - name: docker-creds
     path: /root/.docker/config.json
   depends_on:
+  - clone
   - Base Image
   - SolidJS
 
@@ -264,6 +273,7 @@ steps:
   - name: docker-creds
     path: /root/.docker/config.json
   depends_on:
+  - clone
   - Base Image
   - SolidJS
 
