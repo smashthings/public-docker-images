@@ -25,6 +25,8 @@ steps:
     path: /var/run/docker.sock
   - name: docker-creds
     path: /root/.docker/config.json
+  depends_on:
+  - clone
 
 - name: K8s Certbot
   image: smasherofallthings/python-fe
@@ -37,6 +39,8 @@ steps:
     path: /var/run/docker.sock
   - name: docker-creds
     path: /root/.docker/config.json
+  depends_on:
+  - clone
 
 - name: Push repo to public repos
   image: smasherofallthings/debug
@@ -53,6 +57,8 @@ steps:
   when:
     branch:
     - master
+  depends_on:
+  - clone
 
 ##########################################
 # Base Image Derived Images
@@ -183,6 +189,8 @@ steps:
     path: /var/run/docker.sock
   - name: docker-creds
     path: /root/.docker/config.json
+  depends_on:
+  - clone
 
 - name: K8s Certbot
   image: smasherofallthings/python-fe
@@ -195,6 +203,8 @@ steps:
     path: /var/run/docker.sock
   - name: docker-creds
     path: /root/.docker/config.json
+  depends_on:
+  - clone
 
 ##########################################
 # Base Image Derived Images
