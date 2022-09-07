@@ -26,6 +26,7 @@ RUN python3 -m pip install \
   pytest \
   build \
   flask_sqlalchemy \
+  psycopg2-binary \
   flask_migrate \
   sqlalchemy_utils \
   twine
