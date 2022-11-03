@@ -4,9 +4,10 @@ LABEL description="An image that contains main frontend node tools (SolidJS, esb
 
 RUN apt-get update && apt-get install -y \
   python3 \
-  python3-pip
+  python3-pip \
+  python3-venv
 
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg; echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian  buster stable" > /etc/apt/sources.list.d/docker.list
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg; echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian  $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
 RUN apt-get update && apt-get install -y docker-ce-cli
 
 RUN python3 -m pip install \
@@ -21,4 +22,11 @@ RUN python3 -m pip install \
   boto3 \
   bitstring \
   Flask \
-  waitress
+  waitress \
+  pytest \
+  build \
+  flask_sqlalchemy \
+  psycopg2-binary \
+  flask_migrate \
+  sqlalchemy_utils \
+  twine

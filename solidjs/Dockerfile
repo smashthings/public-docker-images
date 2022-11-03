@@ -5,6 +5,7 @@ LABEL description="An image that contains SolidJS for frontend development - mor
 RUN apt-get update && apt-get install -y \
   curl \
   xz-utils \
+  lsb-release \
   git
 
 # Version set to 16.13.1
