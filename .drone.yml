@@ -21,7 +21,7 @@ steps:
   commands:
   - docker build -t smasherofallthings/$$IMAGE_NAME:amd64-latest -t "smasherofallthings/$$IMAGE_NAME:amd64-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/
   - docker buildx build -t smasherofallthings/$$IMAGE_NAME:arm7-latest -t "smasherofallthings/$$IMAGE_NAME:arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" -f $$IMAGE_NAME/Dockerfile --platform linux/arm/v7 --output type=docker $$IMAGE_NAME
-  - for f in 'amd64-latest' 'arm7-latest' "amd64-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" "arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}"; do docker push smasherofallthings/$$IMAGE_NAME:$$f; done
+  - for f in 'amd64-latest' 'arm7-latest' "amd64-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" "arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}"; do printf "Pushing $$f\n" && docker push smasherofallthings/$$IMAGE_NAME:$$f; done
   - docker manifest create smasherofallthings/$$IMAGE_NAME:latest --amend smasherofallthings/$$IMAGE_NAME:arm7-latest --amend smasherofallthings/$$IMAGE_NAME:amd64-latest
   - docker manifest push smasherofallthings/$$IMAGE_NAME:latest
 
@@ -38,7 +38,11 @@ steps:
   environment:
     IMAGE_NAME: certbot-k8s
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - docker build -t smasherofallthings/$$IMAGE_NAME:amd64-latest -t "smasherofallthings/$$IMAGE_NAME:amd64-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/
+  - docker buildx build -t smasherofallthings/$$IMAGE_NAME:arm7-latest -t "smasherofallthings/$$IMAGE_NAME:arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" -f $$IMAGE_NAME/Dockerfile --platform linux/arm/v7 --output type=docker $$IMAGE_NAME
+  - for f in 'amd64-latest' 'arm7-latest' "amd64-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" "arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}"; do printf "Pushing $$f\n" && docker push smasherofallthings/$$IMAGE_NAME:$$f; done
+  - docker manifest create smasherofallthings/$$IMAGE_NAME:latest --amend smasherofallthings/$$IMAGE_NAME:arm7-latest --amend smasherofallthings/$$IMAGE_NAME:amd64-latest
+  - docker manifest push smasherofallthings/$$IMAGE_NAME:latest
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -72,7 +76,10 @@ steps:
   environment:
     IMAGE_NAME: debug
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - docker buildx build -t smasherofallthings/$$IMAGE_NAME:arm7-latest -t "smasherofallthings/$$IMAGE_NAME:arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" -f $$IMAGE_NAME/Dockerfile --platform linux/arm/v7 --output type=docker $$IMAGE_NAME
+  - for f in 'amd64-latest' 'arm7-latest' "amd64-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" "arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}"; do printf "Pushing $$f\n" && docker push smasherofallthings/$$IMAGE_NAME:$$f; done
+  - docker manifest create smasherofallthings/$$IMAGE_NAME:latest --amend smasherofallthings/$$IMAGE_NAME:arm7-latest --amend smasherofallthings/$$IMAGE_NAME:amd64-latest
+  - docker manifest push smasherofallthings/$$IMAGE_NAME:latest
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -87,7 +94,10 @@ steps:
   environment:
     IMAGE_NAME: flask-waitress
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - docker buildx build -t smasherofallthings/$$IMAGE_NAME:arm7-latest -t "smasherofallthings/$$IMAGE_NAME:arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" -f $$IMAGE_NAME/Dockerfile --platform linux/arm/v7 --output type=docker $$IMAGE_NAME
+  - for f in 'amd64-latest' 'arm7-latest' "amd64-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" "arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}"; do printf "Pushing $$f\n" && docker push smasherofallthings/$$IMAGE_NAME:$$f; done
+  - docker manifest create smasherofallthings/$$IMAGE_NAME:latest --amend smasherofallthings/$$IMAGE_NAME:arm7-latest --amend smasherofallthings/$$IMAGE_NAME:amd64-latest
+  - docker manifest push smasherofallthings/$$IMAGE_NAME:latest
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -102,7 +112,10 @@ steps:
   environment:
     IMAGE_NAME: solidjs
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - docker buildx build -t smasherofallthings/$$IMAGE_NAME:arm7-latest -t "smasherofallthings/$$IMAGE_NAME:arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" -f $$IMAGE_NAME/Dockerfile --platform linux/arm/v7 --output type=docker $$IMAGE_NAME
+  - for f in 'amd64-latest' 'arm7-latest' "amd64-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" "arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}"; do printf "Pushing $$f\n" && docker push smasherofallthings/$$IMAGE_NAME:$$f; done
+  - docker manifest create smasherofallthings/$$IMAGE_NAME:latest --amend smasherofallthings/$$IMAGE_NAME:arm7-latest --amend smasherofallthings/$$IMAGE_NAME:amd64-latest
+  - docker manifest push smasherofallthings/$$IMAGE_NAME:latest
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -119,7 +132,10 @@ steps:
   environment:
     IMAGE_NAME: python-fe
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - docker buildx build -t smasherofallthings/$$IMAGE_NAME:arm7-latest -t "smasherofallthings/$$IMAGE_NAME:arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" -f $$IMAGE_NAME/Dockerfile --platform linux/arm/v7 --output type=docker $$IMAGE_NAME
+  - for f in 'amd64-latest' 'arm7-latest' "amd64-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" "arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}"; do printf "Pushing $$f\n" && docker push smasherofallthings/$$IMAGE_NAME:$$f; done
+  - docker manifest create smasherofallthings/$$IMAGE_NAME:latest --amend smasherofallthings/$$IMAGE_NAME:arm7-latest --amend smasherofallthings/$$IMAGE_NAME:amd64-latest
+  - docker manifest push smasherofallthings/$$IMAGE_NAME:latest
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -135,7 +151,10 @@ steps:
   environment:
     IMAGE_NAME: hugo
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - docker buildx build -t smasherofallthings/$$IMAGE_NAME:arm7-latest -t "smasherofallthings/$$IMAGE_NAME:arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" -f $$IMAGE_NAME/Dockerfile --platform linux/arm/v7 --output type=docker $$IMAGE_NAME
+  - for f in 'amd64-latest' 'arm7-latest' "amd64-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" "arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}"; do printf "Pushing $$f\n" && docker push smasherofallthings/$$IMAGE_NAME:$$f; done
+  - docker manifest create smasherofallthings/$$IMAGE_NAME:latest --amend smasherofallthings/$$IMAGE_NAME:arm7-latest --amend smasherofallthings/$$IMAGE_NAME:amd64-latest
+  - docker manifest push smasherofallthings/$$IMAGE_NAME:latest
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -188,7 +207,10 @@ steps:
   environment:
     IMAGE_NAME: base-image
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - docker buildx build -t smasherofallthings/$$IMAGE_NAME:arm7-latest -t "smasherofallthings/$$IMAGE_NAME:arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" -f $$IMAGE_NAME/Dockerfile --platform linux/arm/v7 --output type=docker $$IMAGE_NAME
+  - for f in 'amd64-latest' 'arm7-latest' "amd64-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" "arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}"; do printf "Pushing $$f\n" && docker push smasherofallthings/$$IMAGE_NAME:$$f; done
+  - docker manifest create smasherofallthings/$$IMAGE_NAME:latest --amend smasherofallthings/$$IMAGE_NAME:arm7-latest --amend smasherofallthings/$$IMAGE_NAME:amd64-latest
+  - docker manifest push smasherofallthings/$$IMAGE_NAME:latest
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -202,7 +224,10 @@ steps:
   environment:
     IMAGE_NAME: certbot-k8s
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - docker buildx build -t smasherofallthings/$$IMAGE_NAME:arm7-latest -t "smasherofallthings/$$IMAGE_NAME:arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" -f $$IMAGE_NAME/Dockerfile --platform linux/arm/v7 --output type=docker $$IMAGE_NAME
+  - for f in 'amd64-latest' 'arm7-latest' "amd64-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" "arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}"; do printf "Pushing $$f\n" && docker push smasherofallthings/$$IMAGE_NAME:$$f; done
+  - docker manifest create smasherofallthings/$$IMAGE_NAME:latest --amend smasherofallthings/$$IMAGE_NAME:arm7-latest --amend smasherofallthings/$$IMAGE_NAME:amd64-latest
+  - docker manifest push smasherofallthings/$$IMAGE_NAME:latest
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -218,7 +243,10 @@ steps:
   environment:
     IMAGE_NAME: debug
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - docker buildx build -t smasherofallthings/$$IMAGE_NAME:arm7-latest -t "smasherofallthings/$$IMAGE_NAME:arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" -f $$IMAGE_NAME/Dockerfile --platform linux/arm/v7 --output type=docker $$IMAGE_NAME
+  - for f in 'amd64-latest' 'arm7-latest' "amd64-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" "arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}"; do printf "Pushing $$f\n" && docker push smasherofallthings/$$IMAGE_NAME:$$f; done
+  - docker manifest create smasherofallthings/$$IMAGE_NAME:latest --amend smasherofallthings/$$IMAGE_NAME:arm7-latest --amend smasherofallthings/$$IMAGE_NAME:amd64-latest
+  - docker manifest push smasherofallthings/$$IMAGE_NAME:latest
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -233,7 +261,10 @@ steps:
   environment:
     IMAGE_NAME: flask-waitress
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - docker buildx build -t smasherofallthings/$$IMAGE_NAME:arm7-latest -t "smasherofallthings/$$IMAGE_NAME:arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" -f $$IMAGE_NAME/Dockerfile --platform linux/arm/v7 --output type=docker $$IMAGE_NAME
+  - for f in 'amd64-latest' 'arm7-latest' "amd64-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" "arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}"; do printf "Pushing $$f\n" && docker push smasherofallthings/$$IMAGE_NAME:$$f; done
+  - docker manifest create smasherofallthings/$$IMAGE_NAME:latest --amend smasherofallthings/$$IMAGE_NAME:arm7-latest --amend smasherofallthings/$$IMAGE_NAME:amd64-latest
+  - docker manifest push smasherofallthings/$$IMAGE_NAME:latest
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -248,7 +279,10 @@ steps:
   environment:
     IMAGE_NAME: solidjs
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - docker buildx build -t smasherofallthings/$$IMAGE_NAME:arm7-latest -t "smasherofallthings/$$IMAGE_NAME:arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" -f $$IMAGE_NAME/Dockerfile --platform linux/arm/v7 --output type=docker $$IMAGE_NAME
+  - for f in 'amd64-latest' 'arm7-latest' "amd64-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" "arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}"; do printf "Pushing $$f\n" && docker push smasherofallthings/$$IMAGE_NAME:$$f; done
+  - docker manifest create smasherofallthings/$$IMAGE_NAME:latest --amend smasherofallthings/$$IMAGE_NAME:arm7-latest --amend smasherofallthings/$$IMAGE_NAME:amd64-latest
+  - docker manifest push smasherofallthings/$$IMAGE_NAME:latest
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -265,7 +299,10 @@ steps:
   environment:
     IMAGE_NAME: python-fe
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - docker buildx build -t smasherofallthings/$$IMAGE_NAME:arm7-latest -t "smasherofallthings/$$IMAGE_NAME:arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" -f $$IMAGE_NAME/Dockerfile --platform linux/arm/v7 --output type=docker $$IMAGE_NAME
+  - for f in 'amd64-latest' 'arm7-latest' "amd64-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" "arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}"; do printf "Pushing $$f\n" && docker push smasherofallthings/$$IMAGE_NAME:$$f; done
+  - docker manifest create smasherofallthings/$$IMAGE_NAME:latest --amend smasherofallthings/$$IMAGE_NAME:arm7-latest --amend smasherofallthings/$$IMAGE_NAME:amd64-latest
+  - docker manifest push smasherofallthings/$$IMAGE_NAME:latest
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -281,7 +318,10 @@ steps:
   environment:
     IMAGE_NAME: hugo
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - docker buildx build -t smasherofallthings/$$IMAGE_NAME:arm7-latest -t "smasherofallthings/$$IMAGE_NAME:arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" -f $$IMAGE_NAME/Dockerfile --platform linux/arm/v7 --output type=docker $$IMAGE_NAME
+  - for f in 'amd64-latest' 'arm7-latest' "amd64-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" "arm7-$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}"; do printf "Pushing $$f\n" && docker push smasherofallthings/$$IMAGE_NAME:$$f; done
+  - docker manifest create smasherofallthings/$$IMAGE_NAME:latest --amend smasherofallthings/$$IMAGE_NAME:arm7-latest --amend smasherofallthings/$$IMAGE_NAME:amd64-latest
+  - docker manifest push smasherofallthings/$$IMAGE_NAME:latest
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
