@@ -97,6 +97,7 @@ steps:
   image: smasherofallthings/python-fe
   environment:
     IMAGE_NAME: solidjs
+  commands:
   - bash cicd/buildCommands.sh
   volumes:
   - name: docker-socket
