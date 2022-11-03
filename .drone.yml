@@ -162,7 +162,7 @@ trigger:
     - push
     - cron
 
----
+# ---
 ##########################################
 # # Cron Pipeline
 # kind: pipeline
