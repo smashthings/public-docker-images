@@ -8,4 +8,6 @@ git \
 ssh \
 rsync
 
-RUN curl -L https://github.com/gohugoio/hugo/releases/download/v0.101.0/hugo_0.101.0_Linux-64bit.deb -o /tmp/hugo.deb && apt-get install /tmp/hugo.deb && rm -rf /tmp/hugo.deb && hugo version
+RUN mkdir /tmp/dest && curl -L https://github.com/gohugoio/hugo/releases/download/v0.105.0/hugo_0.105.0_linux-arm.tar.gz -o /tmp/hugo.tar.gz && tar -C /tmp/dest -xvf /tmp/hugo.tar.gz && mv /tmp/dest/hugo /usr/bin/hugo && chmod a+x /usr/bin/hugo
+
+RUN hugo version

@@ -131,6 +131,7 @@ steps:
   image: smasherofallthings/python-fe
   environment:
     IMAGE_NAME: hugo
+    ArmDockerfile: "Dockerfile.arm7"
   commands:
   - bash cicd/buildCommands.sh
   volumes:
