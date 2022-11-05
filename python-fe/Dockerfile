@@ -17,22 +17,10 @@ RUN apt-get update && apt-get install -y docker-ce-cli
 # RUN python3 -m pip install psycopg2-binary==2.8.6
 
 RUN python3 -m pip install \
-  kubernetes \
-  prometheus-client \
   requests \
-  awscli \
   PyYaml \
-  names \
-  jmespath \
   Jinja2 \
   boto3 \
-  bitstring \
   Flask \
   waitress \
-  pytest \
-  build \
-  flask_sqlalchemy \
-  flask_migrate \
-  sqlalchemy_utils \
-  psycopg2-binary \
   twine
