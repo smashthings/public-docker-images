@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
 curl \
 git \
 ssh \
+imagemagick \
 rsync
 
 RUN mkdir /tmp/dest && curl -L https://github.com/gohugoio/hugo/releases/download/v0.105.0/hugo_0.105.0_linux-arm.tar.gz -o /tmp/hugo.tar.gz && tar -C /tmp/dest -xvf /tmp/hugo.tar.gz && mv /tmp/dest/hugo /usr/bin/hugo && chmod a+x /usr/bin/hugo && hugo version
