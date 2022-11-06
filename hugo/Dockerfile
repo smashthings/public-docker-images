@@ -7,6 +7,7 @@ curl \
 git \
 ssh \
 imagemagick \
+unzip \
 rsync
 
 RUN curl -L https://github.com/gohugoio/hugo/releases/download/v0.101.0/hugo_0.101.0_Linux-64bit.deb -o /tmp/hugo.deb && apt-get install /tmp/hugo.deb && rm -rf /tmp/hugo.deb && hugo version
