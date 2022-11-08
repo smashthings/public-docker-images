@@ -1,0 +1,25 @@
+FROM smasherofallthings/base-image:latest
+LABEL maintainer="smasherofallthings"
+LABEL description="An image that contains SolidJS for frontend development - more details: https://gitlab.com/scripteddog/public-docker-images"
+
+RUN apt-get update && apt-get install -y \
+  curl \
+  xz-utils \
+  lsb-release \
+  git \
+  libatomic1
+
+# Version set to 16.13.1
+RUN mkdir /tmp/node /tmp/node-extract && curl -L https://nodejs.org/dist/v16.13.1/node-v16.13.1-linux-armv7l.tar.xz -o /tmp/node/node.tar.xz
+
+RUN mkdir -p /usr/local/lib/nodejs && tar -xJvf /tmp/node/node.tar.xz -C /tmp/node-extract
+RUN mv /tmp/node-extract/node-v16.13.1-linux-armv7l/* /usr/local/lib/nodejs/ && rm -rf /tmp/node-extract
+
+ENV PATH="/usr/local/lib/nodejs/bin:${PATH}"
+
+RUN ls -la /usr/local/lib/nodejs/bin
+# RUN node -v && npm version && npx -v
+
+# RUN npm install -g solid-js babel-preset-solid esbuild esbuild-plugin-solid
+
+ENTRYPOINT [ "bash" ]

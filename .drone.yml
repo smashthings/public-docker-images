@@ -19,7 +19,8 @@ steps:
   environment:
     IMAGE_NAME: base-image
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - bash cicd/buildCommands.sh
+
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -33,7 +34,7 @@ steps:
   environment:
     IMAGE_NAME: certbot-k8s
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - bash cicd/buildCommands.sh
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -67,7 +68,7 @@ steps:
   environment:
     IMAGE_NAME: debug
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - bash cicd/buildCommands.sh
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -82,7 +83,7 @@ steps:
   environment:
     IMAGE_NAME: flask-waitress
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - bash cicd/buildCommands.sh
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -96,8 +97,9 @@ steps:
   image: smasherofallthings/python-fe
   environment:
     IMAGE_NAME: solidjs
+    ArmDockerfile: "Dockerfile.arm7"
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - bash cicd/buildCommands.sh
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -114,7 +116,7 @@ steps:
   environment:
     IMAGE_NAME: python-fe
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - bash cicd/buildCommands.sh
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -129,8 +131,9 @@ steps:
   image: smasherofallthings/python-fe
   environment:
     IMAGE_NAME: hugo
+    ArmDockerfile: "Dockerfile.arm7"
   commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
+  - bash cicd/buildCommands.sh
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -158,146 +161,147 @@ trigger:
     - pipeline
   event:
     - push
-
----
-##########################################
-# Cron Pipeline
-kind: pipeline
-type: docker
-name: public-docker-images-cron
-
-clone:
-  disable: true
-
-steps:
-- name: clone
-  image: smasherofallthings/debug
-  commands:
-  - GIT_SSL_NO_VERIFY=true git clone -v $DRONE_GIT_HTTP_URL .
-  - GIT_SSL_NO_VERIFY=true git checkout $DRONE_COMMIT
-
-##########################################
-# Independent Steps
-- name: Base Image
-  image: smasherofallthings/python-fe
-  environment:
-    IMAGE_NAME: base-image
-  commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
-  volumes:
-  - name: docker-socket
-    path: /var/run/docker.sock
-  - name: docker-creds
-    path: /root/.docker/config.json
-  depends_on:
-  - clone
-
-- name: K8s Certbot
-  image: smasherofallthings/python-fe
-  environment:
-    IMAGE_NAME: certbot-k8s
-  commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
-  volumes:
-  - name: docker-socket
-    path: /var/run/docker.sock
-  - name: docker-creds
-    path: /root/.docker/config.json
-  depends_on:
-  - clone
-
-##########################################
-# Base Image Derived Images
-- name: Debug
-  image: smasherofallthings/python-fe
-  environment:
-    IMAGE_NAME: debug
-  commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
-  volumes:
-  - name: docker-socket
-    path: /var/run/docker.sock
-  - name: docker-creds
-    path: /root/.docker/config.json
-  depends_on:
-  - clone
-  - Base Image
-
-- name: Flask Waitress
-  image: smasherofallthings/python-fe
-  environment:
-    IMAGE_NAME: flask-waitress
-  commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
-  volumes:
-  - name: docker-socket
-    path: /var/run/docker.sock
-  - name: docker-creds
-    path: /root/.docker/config.json
-  depends_on:
-  - clone
-  - Base Image
-
-- name: SolidJS
-  image: smasherofallthings/python-fe
-  environment:
-    IMAGE_NAME: solidjs
-  commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
-  volumes:
-  - name: docker-socket
-    path: /var/run/docker.sock
-  - name: docker-creds
-    path: /root/.docker/config.json
-  depends_on:
-  - clone
-  - Base Image
-
-##########################################
-# Frontend Images
-- name: Python Frontend
-  image: smasherofallthings/python-fe
-  environment:
-    IMAGE_NAME: python-fe
-  commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
-  volumes:
-  - name: docker-socket
-    path: /var/run/docker.sock
-  - name: docker-creds
-    path: /root/.docker/config.json
-  depends_on:
-  - clone
-  - Base Image
-  - SolidJS
-
-- name: Hugo
-  image: smasherofallthings/python-fe
-  environment:
-    IMAGE_NAME: hugo
-  commands:
-  - docker build -t smasherofallthings/$$IMAGE_NAME:latest -t "smasherofallthings/$$IMAGE_NAME:$$(date '+%Y-%m-%d')-b$${DRONE_BUILD_NUMBER}" $$IMAGE_NAME/ && docker push smasherofallthings/$$IMAGE_NAME --all-tags
-  volumes:
-  - name: docker-socket
-    path: /var/run/docker.sock
-  - name: docker-creds
-    path: /root/.docker/config.json
-  depends_on:
-  - clone
-  - Base Image
-  - SolidJS
-
-volumes:
-- name: docker-socket
-  host:
-    path: /var/run/docker.sock
-- name: docker-creds
-  host:
-    path: /root/.docker/config.json
-- name: ssh-creds
-  host:
-    path: /root/.ssh/
-
-trigger:
-  event:
     - cron
+
+# ---
+##########################################
+# # Cron Pipeline
+# kind: pipeline
+# type: docker
+# name: public-docker-images-cron
+
+# clone:
+#   disable: true
+
+# steps:
+# - name: clone
+#   image: smasherofallthings/debug
+#   commands:
+#   - GIT_SSL_NO_VERIFY=true git clone -v $DRONE_GIT_HTTP_URL .
+#   - GIT_SSL_NO_VERIFY=true git checkout $DRONE_COMMIT
+
+# ##########################################
+# # Independent Steps
+# - name: Base Image
+#   image: smasherofallthings/python-fe
+#   environment:
+#     IMAGE_NAME: base-image
+#   commands:
+#   - bash cicd/buildCommands.sh
+#   volumes:
+#   - name: docker-socket
+#     path: /var/run/docker.sock
+#   - name: docker-creds
+#     path: /root/.docker/config.json
+#   depends_on:
+#   - clone
+
+# - name: K8s Certbot
+#   image: smasherofallthings/python-fe
+#   environment:
+#     IMAGE_NAME: certbot-k8s
+#   commands:
+#   - bash cicd/buildCommands.sh
+#   volumes:
+#   - name: docker-socket
+#     path: /var/run/docker.sock
+#   - name: docker-creds
+#     path: /root/.docker/config.json
+#   depends_on:
+#   - clone
+
+# ##########################################
+# # Base Image Derived Images
+# - name: Debug
+#   image: smasherofallthings/python-fe
+#   environment:
+#     IMAGE_NAME: debug
+#   commands:
+#   - bash cicd/buildCommands.sh
+#   volumes:
+#   - name: docker-socket
+#     path: /var/run/docker.sock
+#   - name: docker-creds
+#     path: /root/.docker/config.json
+#   depends_on:
+#   - clone
+#   - Base Image
+
+# - name: Flask Waitress
+#   image: smasherofallthings/python-fe
+#   environment:
+#     IMAGE_NAME: flask-waitress
+#   commands:
+#   - bash cicd/buildCommands.sh
+#   volumes:
+#   - name: docker-socket
+#     path: /var/run/docker.sock
+#   - name: docker-creds
+#     path: /root/.docker/config.json
+#   depends_on:
+#   - clone
+#   - Base Image
+
+# - name: SolidJS
+#   image: smasherofallthings/python-fe
+#   environment:
+#     IMAGE_NAME: solidjs
+#   commands:
+#   - bash cicd/buildCommands.sh
+#   volumes:
+#   - name: docker-socket
+#     path: /var/run/docker.sock
+#   - name: docker-creds
+#     path: /root/.docker/config.json
+#   depends_on:
+#   - clone
+#   - Base Image
+
+# ##########################################
+# # Frontend Images
+# - name: Python Frontend
+#   image: smasherofallthings/python-fe
+#   environment:
+#     IMAGE_NAME: python-fe
+#   commands:
+#   - bash cicd/buildCommands.sh
+#   volumes:
+#   - name: docker-socket
+#     path: /var/run/docker.sock
+#   - name: docker-creds
+#     path: /root/.docker/config.json
+#   depends_on:
+#   - clone
+#   - Base Image
+#   - SolidJS
+
+# - name: Hugo
+#   image: smasherofallthings/python-fe
+#   environment:
+#     IMAGE_NAME: hugo
+#   commands:
+#   - bash cicd/buildCommands.sh
+#   volumes:
+#   - name: docker-socket
+#     path: /var/run/docker.sock
+#   - name: docker-creds
+#     path: /root/.docker/config.json
+#   depends_on:
+#   - clone
+#   - Base Image
+#   - SolidJS
+
+# volumes:
+# - name: docker-socket
+#   host:
+#     path: /var/run/docker.sock
+# - name: docker-creds
+#   host:
+#     path: /root/.docker/config.json
+# - name: ssh-creds
+#   host:
+#     path: /root/.ssh/
+
+# trigger:
+#   event:
+#     - cron
