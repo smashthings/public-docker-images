@@ -33,6 +33,7 @@ steps:
   image: smasherofallthings/python-fe
   environment:
     IMAGE_NAME: certbot-k8s
+    ArmDockerfile: "Dockerfile.arm7"
   commands:
   - bash cicd/buildCommands.sh
   volumes:
