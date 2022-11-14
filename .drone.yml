@@ -116,6 +116,7 @@ steps:
   image: smasherofallthings/python-fe
   environment:
     IMAGE_NAME: python-fe
+    SkipArmBuild: "true"
   commands:
   - bash cicd/buildCommands.sh
   volumes:
