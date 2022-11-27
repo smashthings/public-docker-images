@@ -26,4 +26,5 @@ RUN python3 -m pip install \
   boto3 \
   Flask \
   waitress \
+  pytest \
   twine
