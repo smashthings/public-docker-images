@@ -19,7 +19,7 @@ steps:
   environment:
     IMAGE_NAME: base-image
   commands:
-  - bash cicd/buildCommands.sh
+  - bash cicd/drone/buildCommands.sh
 
   volumes:
   - name: docker-socket
@@ -35,7 +35,7 @@ steps:
     IMAGE_NAME: certbot-k8s
     SkipArmBuild: "true"
   commands:
-  - bash cicd/buildCommands.sh
+  - bash cicd/drone/buildCommands.sh
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -69,7 +69,7 @@ steps:
   environment:
     IMAGE_NAME: debug
   commands:
-  - bash cicd/buildCommands.sh
+  - bash cicd/drone/buildCommands.sh
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -84,7 +84,7 @@ steps:
   environment:
     IMAGE_NAME: flask-waitress
   commands:
-  - bash cicd/buildCommands.sh
+  - bash cicd/drone/buildCommands.sh
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -100,7 +100,7 @@ steps:
     IMAGE_NAME: solidjs
     ArmDockerfile: "Dockerfile.arm7"
   commands:
-  - bash cicd/buildCommands.sh
+  - bash cicd/drone/buildCommands.sh
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -118,7 +118,7 @@ steps:
     IMAGE_NAME: python-fe
     SkipArmBuild: "true"
   commands:
-  - bash cicd/buildCommands.sh
+  - bash cicd/drone/buildCommands.sh
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -135,7 +135,7 @@ steps:
     IMAGE_NAME: hugo
     ArmDockerfile: "Dockerfile.arm7"
   commands:
-  - bash cicd/buildCommands.sh
+  - bash cicd/drone/buildCommands.sh
   volumes:
   - name: docker-socket
     path: /var/run/docker.sock
@@ -189,7 +189,7 @@ trigger:
 #   environment:
 #     IMAGE_NAME: base-image
 #   commands:
-#   - bash cicd/buildCommands.sh
+#   - bash cicd/drone/buildCommands.sh
 #   volumes:
 #   - name: docker-socket
 #     path: /var/run/docker.sock
@@ -203,7 +203,7 @@ trigger:
 #   environment:
 #     IMAGE_NAME: certbot-k8s
 #   commands:
-#   - bash cicd/buildCommands.sh
+#   - bash cicd/drone/buildCommands.sh
 #   volumes:
 #   - name: docker-socket
 #     path: /var/run/docker.sock
@@ -219,7 +219,7 @@ trigger:
 #   environment:
 #     IMAGE_NAME: debug
 #   commands:
-#   - bash cicd/buildCommands.sh
+#   - bash cicd/drone/buildCommands.sh
 #   volumes:
 #   - name: docker-socket
 #     path: /var/run/docker.sock
@@ -234,7 +234,7 @@ trigger:
 #   environment:
 #     IMAGE_NAME: flask-waitress
 #   commands:
-#   - bash cicd/buildCommands.sh
+#   - bash cicd/drone/buildCommands.sh
 #   volumes:
 #   - name: docker-socket
 #     path: /var/run/docker.sock
@@ -249,7 +249,7 @@ trigger:
 #   environment:
 #     IMAGE_NAME: solidjs
 #   commands:
-#   - bash cicd/buildCommands.sh
+#   - bash cicd/drone/buildCommands.sh
 #   volumes:
 #   - name: docker-socket
 #     path: /var/run/docker.sock
@@ -266,7 +266,7 @@ trigger:
 #   environment:
 #     IMAGE_NAME: python-fe
 #   commands:
-#   - bash cicd/buildCommands.sh
+#   - bash cicd/drone/buildCommands.sh
 #   volumes:
 #   - name: docker-socket
 #     path: /var/run/docker.sock
@@ -282,7 +282,7 @@ trigger:
 #   environment:
 #     IMAGE_NAME: hugo
 #   commands:
-#   - bash cicd/buildCommands.sh
+#   - bash cicd/drone/buildCommands.sh
 #   volumes:
 #   - name: docker-socket
 #     path: /var/run/docker.sock
