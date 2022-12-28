@@ -25,4 +25,5 @@ RUN python3 -m pip install \
   Flask \
   waitress \
   pytest \
+  jinny \
   twine
