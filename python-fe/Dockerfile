@@ -1,4 +1,4 @@
-FROM smasherofallthings/solidjs:latest
+FROM smasherofallthings/solidjs:amd64-latest
 LABEL maintainer="smasherofallthings"
 LABEL description="An image that contains main frontend node tools (SolidJS, esbuild, etc) and python for server work - more details: https://gitlab.com/scripteddog/public-docker-images"
 

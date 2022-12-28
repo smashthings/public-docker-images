@@ -9,7 +9,7 @@ Tag="${2:-amd64-latest}"
 
 set -e
 
-docker build -t smasherofallthings/$1:$Tag $1/
+docker build --no-cache -t smasherofallthings/$1:$Tag $1/
 
 printf "\nBuilt smasherofallthings/$1:$Tag\n\n"
 
