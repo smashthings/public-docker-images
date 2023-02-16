@@ -23,6 +23,8 @@ RUN python3 -m pip install \
   Jinja2 \
   boto3 \
   Flask \
+  Flask-SQLAlchemy \
+  psycopg2 \
   waitress \
   pytest \
   jinny \
