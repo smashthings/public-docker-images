@@ -1,4 +1,6 @@
-FROM smasherofallthings/solidjs:latest
+ARG BaseImage
+FROM ${BaseImage}
+
 LABEL maintainer="smasherofallthings"
 LABEL description="An image that contains Hugo for static site generation"
 

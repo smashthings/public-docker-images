@@ -1,4 +1,6 @@
-FROM smasherofallthings/base-image:latest
+ARG BaseImage
+FROM ${BaseImage}
+
 LABEL maintainer="smasherofallthings"
 LABEL description="An image that contains SolidJS for frontend development - more details: https://gitlab.com/scripteddog/public-docker-images"
 

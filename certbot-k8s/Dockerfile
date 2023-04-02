@@ -1,4 +1,6 @@
-FROM certbot/certbot
+ARG BaseImage
+FROM ${BaseImage}
+
 LABEL maintainer="smasherofallthings"
 LABEL description="An image for running certbot in K8s, ie with AWS CLI and kubectl added - more details: https://gitlab.com/scripteddog/public-docker-images"
 

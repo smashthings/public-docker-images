@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  amd64:
+    image: smasherofallthings/base-image:amd64-${Tag:-latest}
+    build:
+      context: '.'
+      dockerfile: Dockerfile
+      no_cache: true
+      pull: true
+      args:
+        BaseImage: debian:bullseye-slim
+      platforms:
+        - "linux/amd64"
+  arm7:
+    image: smasherofallthings/base-image:arm7-${Tag:-latest}
+    build:
+      context: '.'
+      dockerfile: Dockerfile
+      no_cache: true
+      pull: true
+      args:
+        BaseImage: debian:bullseye-slim
+      platforms:
+        - "linux/arm/v7"
+

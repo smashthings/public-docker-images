@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  amd64:
+    image: smasherofallthings/certbot-k8s:amd64-${Tag:-latest}
+    build:
+      context: '.'
+      dockerfile: Dockerfile
+      no_cache: true
+      pull: true
+      args:
+        BaseImage: certbot/certbot
+      platforms:
+        - "linux/amd64"

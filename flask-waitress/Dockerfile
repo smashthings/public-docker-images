@@ -1,4 +1,6 @@
-FROM smasherofallthings/base-image:latest
+ARG BaseImage
+FROM ${BaseImage}
+
 LABEL maintainer="smasherofallthings"
 LABEL description="An image that contains both flask and waitress - more details: https://gitlab.com/scripteddog/public-docker-images"
 
@@ -8,15 +10,9 @@ python3-pip \
 bash 
 
 RUN python3 -m pip install \
-kubernetes \
-prometheus-client \
 requests \
-awscli \
 PyYaml \
 names \
-jmespath \
-Jinja2 \
-boto3 \
 bitstring \
 Flask \
 waitress
