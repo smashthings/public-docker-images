@@ -33,6 +33,11 @@ Example K8s Usage:
 
 *Use Case:* Quickly loaded into Kubernetes clusters to debug DNS/linkerd, curl service endpoints, etc
 
+### backup
+An image with some basic backup tools such as rclone, zip, unzip and aws cli (ie. S3 cli)
+
+*Use Case:* Zipping or rcloning to cloud providers
+
 ### docker
 The base image with both the docker CLI and docker-compose added to it. Does not include the docker engine itself, this is not a Docker in Docker image.
 
