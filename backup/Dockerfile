@@ -10,6 +10,8 @@ bash-completion \
 curl \
 rclone \
 zip \
+rsync \
+ssh \
 unzip
 
 RUN mkdir /tmp/awsv2 && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awsv2/awscliv2.zip" && unzip /tmp/awsv2/awscliv2.zip -d /tmp/awsv2 && /tmp/awsv2/aws/install
