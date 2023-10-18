@@ -9,7 +9,6 @@ python3-pip \
 curl \
 bash \
 bash-completion \
-nano \
 file \
 jq \
 net-tools \
@@ -17,8 +16,7 @@ dnsutils \
 tar \
 rsync \
 tcpdump \
-make \
-less
+make
 
 COPY artefacts/docker.sh /usr/bin/docker
 RUN chmod a+x /usr/bin/docker

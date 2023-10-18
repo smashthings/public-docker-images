@@ -1,0 +1,26 @@
+
+
+services:
+  amd64:
+    image: smasherofallthings/hugo:amd64-${Tag:-latest}
+    build:
+      context: '.'
+      dockerfile: Dockerfile
+      no_cache: true
+      pull: true
+      args:
+        BaseImage: smasherofallthings/solidjs:amd64-latest
+      platforms:
+        - "linux/amd64"
+  arm7:
+    image: smasherofallthings/hugo:arm7-${Tag:-latest}
+    build:
+      context: '.'
+      dockerfile: Dockerfile.arm7
+      no_cache: true
+      pull: true
+      args:
+        BaseImage: smasherofallthings/solidjs:arm7-latest
+      platforms:
+        - "linux/arm/v7"
+

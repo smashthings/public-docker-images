@@ -1,4 +1,6 @@
-FROM smasherofallthings/base-image:latest
+ARG BaseImage
+FROM ${BaseImage}
+
 LABEL maintainer="smasherofallthings"
 LABEL description="A base debugging image - more details: https://gitlab.com/scripteddog/public-docker-images"
 
@@ -6,7 +8,6 @@ RUN apt-get update && apt-get install -y \
 curl \
 bash \
 bash-completion \
-nano \
 file \
 jq \
 net-tools \
@@ -18,8 +19,7 @@ make \
 git \
 unzip \
 lsb-release \
-gnupg \
-less
+gnupg
 
 RUN curl -L -o /usr/bin/kubectl "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && chmod a+x /usr/bin/kubectl
 

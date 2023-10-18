@@ -1,0 +1,26 @@
+
+
+services:
+  amd64:
+    image: smasherofallthings/docker:amd64-${Tag:-latest}
+    build:
+      context: '.'
+      dockerfile: Dockerfile
+      no_cache: true
+      pull: true
+      args:
+        BaseImage: smasherofallthings/base-image:amd64-latest
+      platforms:
+        - "linux/amd64"
+  arm7:
+    image: smasherofallthings/docker:arm7-${Tag:-latest}
+    build:
+      context: '.'
+      dockerfile: Dockerfile
+      no_cache: true
+      pull: true
+      args:
+        BaseImage: smasherofallthings/base-image:arm7-latest
+      platforms:
+        - "linux/arm/v7"
+

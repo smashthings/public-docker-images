@@ -20,12 +20,10 @@ This image will always be quite large in size as it includes software such as:
 
 - curl
 - A recent bash shell (should be 4.x)
-- nano (vi is in most systems but I prefer nano when things are pressured)
 - file (what type of data am I getting from this endpoint)
 - jq
 - nslookup
 - rsync
-- less
 - The AWS CLI
 - Python3 with some decent libraries
 
@@ -35,6 +33,15 @@ Example K8s Usage:
 
 *Use Case:* Quickly loaded into Kubernetes clusters to debug DNS/linkerd, curl service endpoints, etc
 
+### backup
+An image with some basic backup tools such as rclone, zip, unzip and aws cli (ie. S3 cli)
+
+*Use Case:* Zipping or rcloning to cloud providers
+
+### docker
+The base image with both the docker CLI and docker-compose added to it. Does not include the docker engine itself, this is not a Docker in Docker image.
+
+*Use Case:* Building docker images!
 
 ### flask-waitress
 There are flask images, there are waitress images but I struggled to find an image with both flask and waitress with a full supply chain for the image itself.
