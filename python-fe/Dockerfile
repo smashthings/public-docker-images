@@ -26,8 +26,9 @@ RUN python3 -m pip install \
   boto3 \
   Flask \
   Flask-SQLAlchemy \
+  sqlobject \
   psycopg2 \
   waitress \
   pytest \
   jinny \
-  twine
+  twine 
