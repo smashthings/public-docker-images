@@ -23,4 +23,7 @@ services:
         BaseImage: arm32v7/debian:bullseye-slim
       platforms:
         - "linux/arm/v7"
+    environment:
+      - 'DOCKER_BUILDKIT=1'
+      - 'COMPOSE_DOCKER_CLI_BUILD=1'
 
