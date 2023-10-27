@@ -6,14 +6,11 @@ LABEL description="An image that contains both flask and waitress - more details
 
 RUN apt update && apt install -y \
 python3 \
-python3-pip
-
-RUN python3 -m pip install \
-requests \
-PyYaml \
-names \
-bitstring \
-Flask \
-waitress
+python3-pip \
+python3-yaml \
+python3-requests \
+python3-flask \
+python3-waitress \
+python3-bitstring
 
 ENTRYPOINT [ "python3" ]
