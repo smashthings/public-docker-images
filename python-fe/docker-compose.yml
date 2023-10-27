@@ -1,5 +1,3 @@
-
-
 services:
   amd64:
     image: smasherofallthings/python-fe:amd64-${Tag:-latest}

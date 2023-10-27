@@ -5,8 +5,8 @@ GPG_KEY='E3FF2839C048B25C084DEBE9B26995E310250568'
 PYTHON_VERSION='3.9.5'
 
 set -eux;
-apt-get update
-apt-get install -y --no-install-recommends ca-certificates netbase tzdata
+apt update
+apt install -y --no-install-recommends ca-certificates netbase tzdata
 rm -rf /var/lib/apt/lists/*
 
 set -ex \

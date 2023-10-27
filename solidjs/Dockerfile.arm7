@@ -4,7 +4,7 @@ FROM ${BaseImage}
 LABEL maintainer="smasherofallthings"
 LABEL description="An image that contains SolidJS for frontend development - more details: https://gitlab.com/scripteddog/public-docker-images"
 
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt install -y \
   curl \
   xz-utils \
   lsb-release \

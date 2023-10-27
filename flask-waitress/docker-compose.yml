@@ -1,5 +1,3 @@
-
-
 services:
   amd64:
     image: smasherofallthings/flask-waitress:amd64-${Tag:-latest}

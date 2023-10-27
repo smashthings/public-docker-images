@@ -2,13 +2,11 @@ FROM debian:sid
 LABEL maintainer="smasherofallthings"
 LABEL description="A debugging image utilsing debian testing for container management via Buildah - more details: https://gitlab.com/scripteddog/public-docker-images"
 
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt install -y \
 buildah \
 python3 \
 python3-pip \
 curl \
-bash \
-bash-completion \
 file \
 jq \
 net-tools \

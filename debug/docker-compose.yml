@@ -1,5 +1,3 @@
-
-
 services:
   amd64:
     image: smasherofallthings/debug:amd64-${Tag:-latest}
@@ -9,7 +7,7 @@ services:
       no_cache: true
       pull: true
       args:
-        BaseImage: smasherofallthings/base-image:amd64-latest
+        BaseImage: smasherofallthings/docker:amd64-latest
       platforms:
         - "linux/amd64"
   arm7:
@@ -20,7 +18,7 @@ services:
       no_cache: true
       pull: true
       args:
-        BaseImage: smasherofallthings/base-image:arm7-latest
+        BaseImage: smasherofallthings/docker:arm7-latest
       platforms:
         - "linux/arm/v7"
 

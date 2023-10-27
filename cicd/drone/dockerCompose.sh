@@ -25,11 +25,10 @@ printf "${hr}\nBuilding x86 with build tag...\n"
 Tag="$(date '+%Y-%m-%d')-b${DRONE_BUILD_NUMBER}" docker compose build amd64
 printf "${hr}\nPushing x86 build tag...\n"
 Tag="$(date '+%Y-%m-%d')-b${DRONE_BUILD_NUMBER}" docker compose push amd64
-
-# printf "${hr}\nBuilding x86 latest...\n"
-# docker compose build amd64
-# printf "${hr}\nPushing x86 latest...\n"
-# docker compose push
+printf "${hr}\nBuilding x86 latest...\n"
+docker compose build amd64
+printf "${hr}\nPushing x86 latest...\n"
+docker compose push amd64
 
 if [[ -z $SkipArmBuild ]]; then
   printf "${hr}\nBuilding arm latest...\n"

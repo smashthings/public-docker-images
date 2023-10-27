@@ -1,5 +1,3 @@
-
-
 services:
   amd64:
     image: smasherofallthings/solidjs:amd64-${Tag:-latest}

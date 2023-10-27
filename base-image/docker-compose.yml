@@ -1,5 +1,3 @@
-
-
 services:
   amd64:
     image: smasherofallthings/base-image:amd64-${Tag:-latest}
@@ -9,9 +7,8 @@ services:
       no_cache: true
       pull: true
       args:
-        BaseImage: debian:bullseye-slim
-      platforms:
-        - "linux/amd64"
+        BaseImage: debian:bookworm-slim
+    platform: "linux/amd64"
   arm7:
     image: smasherofallthings/base-image:arm7-${Tag:-latest}
     build:
@@ -20,10 +17,6 @@ services:
       no_cache: true
       pull: true
       args:
-        BaseImage: arm32v7/debian:bullseye-slim
-      platforms:
-        - "linux/arm/v7"
-    environment:
-      - 'DOCKER_BUILDKIT=1'
-      - 'COMPOSE_DOCKER_CLI_BUILD=1'
+        BaseImage: arm32v7/debian:bookworm-slim
+    platform: "linux/arm/v7"
 
