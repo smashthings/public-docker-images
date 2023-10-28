@@ -2,7 +2,7 @@
 
 These are publicly available docker images hosted on docker hub. They're used frequently for internal builds as well as consultancy work. All images can be pulled from docker hub under smasherofallthings/<iamge-name>. Each weekly build is tagged individually with the date and build number. `latest` points to the most recent build:
 
-`latest` - Updated weekly with a manifest pointing to either the amd64 or armv7 build
+`latest` - Updated weekly with a manifest pointing to either the amd64 or armv7 build \
 `dated` - Dated to format %Y-%m-%d and build number *b<build-number>*, eg. `2022-05-01-b13`
 
 All images are now based off of debian bookworm, ie. Debian 12 released in 2023.
