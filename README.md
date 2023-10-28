@@ -57,7 +57,7 @@ Takes the certbot base image and installs kubectl and the AWS CLI as well. This 
 *Use Case:* A K8s cronjob for requesting and updating certificates from certbot
 
 ### Python FE
-This is a specialised image using selected frontend technologies with backend python web services. It's the solidjs image with python added over the top.
+This is a specialised image using selected frontend technologies with backend python web services. It's the solidjs image with python added over the top and a boatload of common packages. These packages are loaded into a virtual environment at `/opt/venv`.
 
 *Use Case:* Local development for projects [such as this](https://github.com/smashthings/s3proxy)
 
