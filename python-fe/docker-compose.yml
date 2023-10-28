@@ -1,12 +1,10 @@
-
-
 services:
   amd64:
     image: smasherofallthings/python-fe:amd64-${Tag:-latest}
     build:
       context: '.'
       dockerfile: Dockerfile
-      no_cache: true
+      # no_cache: true
       pull: true
       args:
         BaseImage: smasherofallthings/solidjs:amd64-latest
