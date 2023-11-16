@@ -8,6 +8,7 @@ services:
       pull: true
       args:
         BaseImage: smasherofallthings/base-image:amd64-latest
+        NodeVersion: v20.9.0
       platforms:
         - "linux/amd64"
   arm7:
@@ -19,6 +20,7 @@ services:
       pull: true
       args:
         BaseImage: smasherofallthings/base-image:arm7-latest
+        NodeVersion: v20.9.0
       platforms:
         - "linux/arm/v7"
 

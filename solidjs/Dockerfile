@@ -10,8 +10,9 @@ RUN apt update && apt install -y \
   lsb-release \
   git
 
-# Version set to 16.13.1
-RUN mkdir -p /tmp/node && curl https://nodejs.org/dist/v16.13.1/node-v16.13.1-linux-x64.tar.xz -o /tmp/node/node.tar.xz
+ARG NodeVersion
+
+RUN mkdir -p /tmp/node && curl https://nodejs.org/dist/${NodeVersion}/node-${NodeVersion}-linux-x64.tar.xz -o /tmp/node/node.tar.xz
 
 RUN mkdir -p /usr/local/lib/nodejs && tar -xJvf /tmp/node/node.tar.xz -C /usr/local/lib/nodejs
 RUN mv /usr/local/lib/nodejs/*/* /usr/local/lib/nodejs/ && rm -rf /usr/local/lib/nodejs/node-v*-x64
