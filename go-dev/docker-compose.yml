@@ -1,0 +1,26 @@
+services:
+  amd64:
+    image: smasherofallthings/go-dev:amd64-${Tag:-latest}
+    build:
+      context: '.'
+      dockerfile: Dockerfile
+      no_cache: true
+      pull: true
+      args:
+        BaseImage: smasherofallthings/solidjs:amd64-latest
+        GoVersion: go1.21.4.linux-amd64.tar.gz
+      platforms:
+        - "linux/amd64"
+  arm7:
+    image: smasherofallthings/go-dev:arm7-${Tag:-latest}
+    build:
+      context: '.'
+      dockerfile: Dockerfile
+      no_cache: true
+      pull: true
+      args:
+        BaseImage: smasherofallthings/solidjs:arm7-latest
+        GoVersion: go1.21.4.linux-armv6l.tar.gz
+      platforms:
+        - "linux/arm/v7"
+

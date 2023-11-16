@@ -61,6 +61,16 @@ This is a specialised image using selected frontend technologies with backend py
 
 *Use Case:* Local development for projects [such as this](https://github.com/smashthings/s3proxy)
 
+### SolidJS
+Contains a fully featured SolidJS / TailwindCSS build environment. Used for local development without dealing with NodeJS installation pain. `nvm` is like a 5k shell script, I don't want to deal with that if it goes wrong.
+
+*Use Case:* Local frontend development using solidjs, nodemon and tailwind to generate frontend artefacts to a mounted volume using a controlled NodeJS version
+
+### Go Dev
+The SolidJS image with Go installed. Now you can nodemon your go files.
+
+*Use Case:* nodemon for go + frontend development
+
 ### Hugo
 For some reason Hugo doesn't release docker images, so this is a docker image that includes Hugo and some base packages such as `git` and `curl`
 

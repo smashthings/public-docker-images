@@ -147,6 +147,23 @@ steps:
 
 ##########################################
 # Frontend Images
+- name: Go Dev
+  image: smasherofallthings/docker
+  environment:
+    IMAGE_NAME: go-dev
+    SkipArmBuild: "false"
+  commands:
+  - bash cicd/drone/dockerCompose.sh
+  volumes:
+  - name: docker-socket
+    path: /var/run/docker.sock
+  - name: docker-creds
+    path: /root/.docker/config.json
+  depends_on:
+  - clone
+  - Base Image
+  - SolidJS
+
 - name: Python Frontend
   image: smasherofallthings/docker
   environment:
