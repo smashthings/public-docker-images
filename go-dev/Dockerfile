@@ -10,4 +10,7 @@ RUN curl -L -o /tmp/${GoVersion} https://go.dev/dl/${GoVersion} && mkdir -p /usr
 ENV PATH="/usr/local/go/bin:${PATH}"
 RUN go version
 
+# go get support
+RUN apt update && apt install -y ca-certificates git-core ssh
+
 ENTRYPOINT [ "bash" ]
