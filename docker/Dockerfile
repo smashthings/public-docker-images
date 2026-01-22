@@ -18,6 +18,4 @@ RUN echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/d
 
 RUN apt update && apt install -y docker-buildx-plugin docker-ce-cli docker-compose-plugin
 
-RUN mkdir -p /root/.docker/cli-plugins && curl -s -L "https://github.com/docker/buildx/releases/download/v0.3.0/buildx-v0.3.0.linux-amd64" > /root/.docker/cli-plugins/docker-buildx && chmod a+x /root/.docker/cli-plugins/docker-buildx
-
 ENTRYPOINT [ "/bin/bash" ]
