@@ -21,4 +21,5 @@ services:
         BaseImage: smasherofallthings/base-image:arm7-latest
       platforms:
         - "linux/arm/v7"
+    platform: "linux/arm/v7"
 

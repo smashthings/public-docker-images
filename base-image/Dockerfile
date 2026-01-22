@@ -1,4 +1,4 @@
-ARG BaseImage
+ARG BaseImage=stable-slim
 FROM ${BaseImage}
 
 LABEL maintainer="smasherofallthings"

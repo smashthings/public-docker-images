@@ -21,4 +21,4 @@ services:
         BaseImage: smasherofallthings/docker:arm7-latest
       platforms:
         - "linux/arm/v7"
-
+    platform: "linux/arm/v7"
