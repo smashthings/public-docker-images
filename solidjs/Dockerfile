@@ -12,7 +12,7 @@ RUN apt update && apt install -y \
 
 ARG NodeVersion
 
-RUN mkdir -p /tmp/node && curl https://nodejs.org/dist/${NodeVersion}/node-${NodeVersion}-linux-x64.tar.xz -o /tmp/node/node.tar.xz
+RUN mkdir -p /tmp/node && curl -fL --retry 3 --retry-delay 1 --retry-all-errors  https://nodejs.org/dist/${NodeVersion}/node-${NodeVersion}-linux-x64.tar.xz -o /tmp/node/node.tar.xz
 
 RUN mkdir -p /usr/local/lib/nodejs && tar -xJvf /tmp/node/node.tar.xz -C /usr/local/lib/nodejs
 RUN mv /usr/local/lib/nodejs/*/* /usr/local/lib/nodejs/ && rm -rf /usr/local/lib/nodejs/node-v*-x64
