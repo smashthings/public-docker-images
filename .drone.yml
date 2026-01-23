@@ -115,7 +115,7 @@ steps:
   image: smasherofallthings/docker
   environment:
     IMAGE_NAME: solidjs
-    ArmDockerfile: "Dockerfile.arm7"
+    SkipArmBuild: "true"
   commands:
   - bash cicd/drone/dockerCompose.sh
   volumes:
@@ -185,7 +185,7 @@ steps:
   image: smasherofallthings/docker
   environment:
     IMAGE_NAME: hugo
-    ArmDockerfile: "Dockerfile.arm7"
+    SkipArmBuild: "true"
   commands:
   - bash cicd/drone/dockerCompose.sh
   volumes:
