@@ -74,4 +74,8 @@ The SolidJS image with Go installed. Now you can nodemon your go files.
 ### Hugo
 For some reason Hugo doesn't release docker images, so this is a docker image that includes Hugo and some base packages such as `git` and `curl`
 
+Also added a git safety at `/hugo` to avoid git errors. Mount your stuff there.
+
+As a disclaimer, Hugo breaks shit relatively frequently without much warning. I'm not going to be chasing their upstream so this image will "break" a lot as I bump my own versions intermittently. If it does that's just Hugo for you, not my bag.
+
 *Use Case:* CICD pipeline image for Hugo
