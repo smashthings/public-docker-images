@@ -9,16 +9,3 @@ services:
       args:
         BaseImage: debian:trixie-slim
     platform: "linux/amd64"
-  arm7:
-    image: smasherofallthings/base-image:arm7-${Tag:-latest}
-    build:
-      context: '.'
-      dockerfile: Dockerfile
-      no_cache: true
-      pull: true
-      args:
-        BaseImage: arm32v7/debian:trixie-slim
-      platforms:
-        - linux/arm/v7
-    platform: "linux/arm/v7"
-

@@ -10,15 +10,3 @@ services:
         BaseImage: smasherofallthings/docker:amd64-latest
       platforms:
         - "linux/amd64"
-  arm7:
-    image: smasherofallthings/debug:arm7-${Tag:-latest}
-    build:
-      context: '.'
-      dockerfile: Dockerfile
-      no_cache: true
-      pull: true
-      args:
-        BaseImage: smasherofallthings/docker:arm7-latest
-      platforms:
-        - "linux/arm/v7"
-    platform: "linux/arm/v7"
