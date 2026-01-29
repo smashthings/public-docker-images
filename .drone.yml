@@ -96,21 +96,6 @@ steps:
   - clone
   - Base Image
 
-- name: Flask Waitress
-  image: smasherofallthings/docker
-  environment:
-    IMAGE_NAME: flask-waitress
-  commands:
-  - bash cicd/drone/dockerCompose.sh
-  volumes:
-  - name: docker-socket
-    path: /var/run/docker.sock
-  - name: docker-creds
-    path: /root/.docker/config.json
-  depends_on:
-  - clone
-  - Base Image
-
 - name: SolidJS
   image: smasherofallthings/docker
   environment:

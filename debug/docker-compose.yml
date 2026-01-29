@@ -4,7 +4,6 @@ services:
     build:
       context: '.'
       dockerfile: Dockerfile
-      no_cache: true
       pull: true
       args:
         BaseImage: smasherofallthings/docker:amd64-latest
