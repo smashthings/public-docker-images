@@ -1,11 +1,11 @@
 # Public Docker Images
 
-These are publicly available docker images hosted on docker hub. They're used frequently for internal builds as well as consultancy work. All images can be pulled from docker hub under smasherofallthings/<iamge-name>. Each weekly build is tagged individually with the date and build number. `latest` points to the most recent build:
+These are publicly available docker images hosted on docker hub. They're used frequently for internal builds as well as consultancy work. All images can be pulled from docker hub under smasherofallthings/<image-name>. Each weekly build is tagged individually with the date and build number. `latest` points to the most recent build:
 
 `latest` - Updated weekly with a manifest pointing to either the amd64 or armv7 build \
 `dated` - Dated to format %Y-%m-%d and build number *b<build-number>*, eg. `2022-05-01-b13`
 
-All images are now based off of debian bookworm, ie. Debian 12 released in 2023.
+All images are now based off of debian trixie, ie. Debian 13 released in 2025.
 
 > Please use the dated images where possible. These images will encounter breaking changes as they're updated over time.
 
@@ -46,13 +46,8 @@ For more details read [this article](http://jpetazzo.github.io/2015/09/03/do-not
 
 *Use Case:* Building docker images!
 
-### flask-waitress
-There are flask images, there are waitress images but I struggled to find an image with both flask and waitress with a full supply chain for the image itself. With debian bookworm this is built from system packages, allowing for flask and waitress to be available globally.
-
-*Use Case:* A production image for a flask app hosted by waitress as an appropriate runtime
-
 ### Certbot K8s
-Takes the certbot base image and installs kubectl and the AWS CLI as well. This is done so so that you can run the certbot image alongside scripts for writing the certs to K8s secrets, sending them to AWS and/or updating DNS records in AWS Route53 for DNS validation.
+Takes the certbot base image and installs kubectl and the AWS CLI as well. This is done so that you can run the certbot image alongside scripts for writing the certs to K8s secrets, sending them to AWS and/or updating DNS records in AWS Route53 for DNS validation.
 
 *Use Case:* A K8s cronjob for requesting and updating certificates from certbot
 
@@ -79,3 +74,7 @@ Also added a git safety at `/hugo` to avoid git errors. Mount your stuff there.
 As a disclaimer, Hugo breaks shit relatively frequently without much warning. I'm not going to be chasing their upstream so this image will "break" a lot as I bump my own versions intermittently. If it does that's just Hugo for you, not my bag.
 
 *Use Case:* CICD pipeline image for Hugo
+
+
+#### Note
+This repo used to provide armv7 images as well, however that's no longer the case. You should be fine to use exclusively with amd64 by just using the `latest` tag.
