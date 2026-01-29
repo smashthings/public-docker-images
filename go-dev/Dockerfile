@@ -13,4 +13,4 @@ RUN go version
 # go get support
 RUN apt update && apt install -y ca-certificates git-core ssh
 
-ENTRYPOINT [ "bash" ]
+CMD [ "bash" ]

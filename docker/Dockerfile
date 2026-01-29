@@ -18,4 +18,4 @@ RUN echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/d
 
 RUN apt update && apt install -y docker-buildx-plugin docker-ce-cli docker-compose-plugin
 
-ENTRYPOINT [ "/bin/bash" ]
+CMD [ "/bin/bash" ]

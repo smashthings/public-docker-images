@@ -25,4 +25,4 @@ RUN curl -fL --retry 3 --retry-delay 1 --retry-all-errors https://releases.hashi
 
 RUN mkdir /tmp/awsv2 && curl -fL --retry 3 --retry-delay 1 --retry-all-errors "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awsv2/awscliv2.zip" && unzip /tmp/awsv2/awscliv2.zip -d /tmp/awsv2 && /tmp/awsv2/aws/install
 
-ENTRYPOINT [ "/bin/bash" ]
+CMD [ "/bin/bash" ]

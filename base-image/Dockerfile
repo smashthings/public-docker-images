@@ -6,6 +6,6 @@ LABEL description="A base image - more details: https://gitlab.com/scripteddog/p
 
 RUN printf "$(date --iso-8601=seconds)" > /etc/build-date
 
-RUN apt update && apt install -y less nano bash bash-completion
+RUN apt update && apt install -y less nano bash bash-completion && apt upgrade -y
 
-ENTRYPOINT [ "/bin/bash" ]
+CMD [ "/bin/bash" ]
