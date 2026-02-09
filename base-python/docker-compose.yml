@@ -1,0 +1,11 @@
+services:
+  amd64:
+    image: smasherofallthings/base-python:amd64-${Tag:-latest}
+    build:
+      context: '.'
+      dockerfile: Dockerfile
+      pull: true
+      args:
+        BaseImage: smasherofallthings/base-image:amd64-latest
+      platforms:
+        - "linux/amd64"

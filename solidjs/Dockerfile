@@ -21,4 +21,4 @@ RUN node -v && npm version && npx -v
 
 RUN npm install -g solid-js babel-preset-solid esbuild esbuild-plugin-solid nodemon livereload npm-run-all browser-sync tailwindcss
 
-CMD [ "bash" ]
+CMD [ "/bin/bash" ]

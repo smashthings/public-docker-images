@@ -16,6 +16,16 @@ This is a base build with a dated file at `/etc/build-date` and some basic packa
 
 *Use Case:* Base image for everything else in this repo
 
+### Base Python
+A base image that mounts and adds to the path a virtual python environment dodging any distro restrictions. Makes it easy to get on with installing and running your python packages without the full venv bootstrap.
+
+*Use Case:* Not having to repeatedly redo venv bootstrapping
+
+### Ansible
+An ansible image that has the full ansible packages installed as part of the venv and then a bunch of other useful cloudy stuff thrown on top - kubernetes client installed, boto3, database libs, etc
+
+*Use Case:* General ansible CICD tasks
+
 ### Debug
 Debug is a fully featured image used for debugging. It contains many of the tools I expect on a provisioned sysadmin machine such as `nslookup`, `curl`, `ps` and more. Debugging applications and environments can be a nightmare, especially with the poor quality of logging, configuration checks and other missing or bad patterns. Additionally, images are being stripped by "secure" processes breaking the ability to do anything useful inside of running containers. The debug images provides a fully kitted out debian image to work in.
 

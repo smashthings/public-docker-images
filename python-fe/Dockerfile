@@ -28,4 +28,7 @@ RUN python3 -m pip install \
   waitress \
   pytest \
   jinny \
-  twine 
+  twine \
+  build
+
+CMD ["/bin/bash"]
