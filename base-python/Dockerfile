@@ -10,10 +10,14 @@ RUN apt update && apt install -y \
   python3-venv \
   python3-dev \
   libpq-dev \
-  build-essential
+  build-essential \
+  curl
 
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+ENV PATH="/root/.local/bin:${PATH}"
 ENV VIRTUAL_ENV=/opt/venv
-RUN python3 -m venv $VIRTUAL_ENV
+
+RUN uv venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 CMD ["/bin/bash"]
