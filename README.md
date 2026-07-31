@@ -9,6 +9,8 @@ All images are now based off of debian trixie, ie. Debian 13 released in 2025.
 
 > Please use the dated images where possible. These images will encounter breaking changes as they're updated over time.
 
+> Over 50k Docker Hub pulls & usage across production systems such as [Truly Analytics](https://trulydigital.net/products/truly-analytics/) and [SkySiege](https://skysiege.net/).
+
 ## Images
 
 ### Base Image
